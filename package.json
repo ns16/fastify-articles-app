@@ -1,0 +1,15 @@
+{
+  "name": "fastify-articles-app",
+  "version": "1.0.0",
+  "description": "Example of RESTful API with Fastify and Prisma ORM",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "nodemon index.js"
+  },
+  "author": "Nikolay Shamayko <nikolay.shamayko@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "fastify": "^4.26.0"
+  }
+}
