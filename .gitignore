@@ -1,3 +1,5 @@
 .idea
+.tap
 node_modules
 .env
+.env.test
