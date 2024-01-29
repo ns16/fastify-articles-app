@@ -1,4 +1,4 @@
-import { baseFiltersSchema, baseParamsSchema, paginationSchema } from '../../lib/base_schemas.js'
+import { baseFiltersSchema, baseParamsSchema, errorSchema, paginationSchema } from '../../lib/base_schemas.js'
 import prepareFiltersSchema from '../../lib/prepare_filters_schema.js'
 import prepareSortSchema from '../../lib/prepare_sort_schema.js'
 
@@ -76,6 +76,7 @@ export const userSchema = {
 
 const UsersSchemas = {
   index: {
+    summary: 'Get users paginated list',
     query: {
       type: 'object',
       properties: {
@@ -97,11 +98,20 @@ const UsersSchemas = {
             items: userSchema
           },
           pagination: paginationSchema
-        }
-      }
-    }
+        },
+        required: [
+          'data',
+          'pagination'
+        ],
+        additionalProperties: false
+      },
+      400: { ...errorSchema },
+      401: { ...errorSchema }
+    },
+    tags: ['Users']
   },
   all: {
+    summary: 'Get all users',
     query: {
       type: 'object',
       properties: {
@@ -120,11 +130,17 @@ const UsersSchemas = {
             type: 'array',
             items: userSchema
           }
-        }
-      }
-    }
+        },
+        required: ['data'],
+        additionalProperties: false
+      },
+      400: { ...errorSchema },
+      401: { ...errorSchema }
+    },
+    tags: ['Users']
   },
   show: {
+    summary: 'Get specific user',
     params: { ...baseParamsSchema },
     query: {
       type: 'object',
@@ -139,11 +155,18 @@ const UsersSchemas = {
         type: 'object',
         properties: {
           data: userSchema
-        }
-      }
-    }
+        },
+        required: ['data'],
+        additionalProperties: false
+      },
+      400: { ...errorSchema },
+      401: { ...errorSchema },
+      404: { ...errorSchema }
+    },
+    tags: ['Users']
   },
   create: {
+    summary: 'Create new user',
     body: {
       type: 'object',
       properties: {
@@ -165,11 +188,17 @@ const UsersSchemas = {
         type: 'object',
         properties: {
           data: userSchema
-        }
-      }
-    }
+        },
+        required: ['data'],
+        additionalProperties: false
+      },
+      400: { ...errorSchema },
+      401: { ...errorSchema }
+    },
+    tags: ['Users']
   },
   update: {
+    summary: 'Update specific user',
     params: { ...baseParamsSchema },
     body: {
       type: 'object',
@@ -191,12 +220,28 @@ const UsersSchemas = {
         type: 'object',
         properties: {
           data: userSchema
-        }
-      }
-    }
+        },
+        required: ['data'],
+        additionalProperties: false
+      },
+      400: { ...errorSchema },
+      401: { ...errorSchema },
+      404: { ...errorSchema }
+    },
+    tags: ['Users']
   },
   destroy: {
-    params: { ...baseParamsSchema }
+    summary: 'Delete specific user',
+    params: { ...baseParamsSchema },
+    response: {
+      204: {
+        type: 'null'
+      },
+      400: { ...errorSchema },
+      401: { ...errorSchema },
+      404: { ...errorSchema }
+    },
+    tags: ['Users']
   }
 }
 

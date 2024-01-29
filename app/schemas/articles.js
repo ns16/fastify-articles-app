@@ -1,4 +1,4 @@
-import { baseFiltersSchema, baseParamsSchema, paginationSchema } from '../../lib/base_schemas.js'
+import { baseFiltersSchema, baseParamsSchema, errorSchema, paginationSchema } from '../../lib/base_schemas.js'
 import prepareFiltersSchema from '../../lib/prepare_filters_schema.js'
 import prepareSortSchema from '../../lib/prepare_sort_schema.js'
 
@@ -116,6 +116,7 @@ export const articleSchema = {
 
 const ArticlesSchemas = {
   index: {
+    summary: 'Get articles paginated list',
     query: {
       type: 'object',
       properties: {
@@ -137,11 +138,20 @@ const ArticlesSchemas = {
             items: articleSchema
           },
           pagination: paginationSchema
-        }
-      }
-    }
+        },
+        required: [
+          'data',
+          'pagination'
+        ],
+        additionalProperties: false
+      },
+      400: { ...errorSchema },
+      401: { ...errorSchema }
+    },
+    tags: ['Articles']
   },
   all: {
+    summary: 'Get all articles',
     query: {
       type: 'object',
       properties: {
@@ -161,10 +171,14 @@ const ArticlesSchemas = {
             items: articleSchema
           }
         }
-      }
-    }
+      },
+      400: { ...errorSchema },
+      401: { ...errorSchema }
+    },
+    tags: ['Articles']
   },
   show: {
+    summary: 'Get specific article',
     params: { ...baseParamsSchema },
     query: {
       type: 'object',
@@ -179,11 +193,18 @@ const ArticlesSchemas = {
         type: 'object',
         properties: {
           data: articleSchema
-        }
-      }
-    }
+        },
+        required: ['data'],
+        additionalProperties: false
+      },
+      400: { ...errorSchema },
+      401: { ...errorSchema },
+      404: { ...errorSchema }
+    },
+    tags: ['Articles']
   },
   create: {
+    summary: 'Create new article',
     body: {
       type: 'object',
       properties: {
@@ -205,11 +226,17 @@ const ArticlesSchemas = {
         type: 'object',
         properties: {
           data: articleSchema
-        }
-      }
-    }
+        },
+        required: ['data'],
+        additionalProperties: false
+      },
+      400: { ...errorSchema },
+      401: { ...errorSchema }
+    },
+    tags: ['Articles']
   },
   update: {
+    summary: 'Update specific article',
     params: { ...baseParamsSchema },
     body: {
       type: 'object',
@@ -232,12 +259,28 @@ const ArticlesSchemas = {
         type: 'object',
         properties: {
           data: articleSchema
-        }
-      }
-    }
+        },
+        required: ['data'],
+        additionalProperties: false
+      },
+      400: { ...errorSchema },
+      401: { ...errorSchema },
+      404: { ...errorSchema }
+    },
+    tags: ['Articles']
   },
   destroy: {
-    params: { ...baseParamsSchema }
+    summary: 'Delete specific article',
+    params: { ...baseParamsSchema },
+    response: {
+      204: {
+        type: 'null'
+      },
+      400: { ...errorSchema },
+      401: { ...errorSchema },
+      404: { ...errorSchema }
+    },
+    tags: ['Articles']
   }
 }
 

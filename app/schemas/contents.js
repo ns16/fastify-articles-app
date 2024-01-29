@@ -1,4 +1,4 @@
-import { baseFiltersSchema, baseParamsSchema, paginationSchema } from '../../lib/base_schemas.js'
+import { baseFiltersSchema, baseParamsSchema, errorSchema, paginationSchema } from '../../lib/base_schemas.js'
 import prepareFiltersSchema from '../../lib/prepare_filters_schema.js'
 import prepareSortSchema from '../../lib/prepare_sort_schema.js'
 
@@ -59,6 +59,7 @@ export const contentSchema = {
 
 const ContentsSchemas = {
   index: {
+    summary: 'Get contents paginated list',
     query: {
       type: 'object',
       properties: {
@@ -80,11 +81,20 @@ const ContentsSchemas = {
             items: contentSchema
           },
           pagination: paginationSchema
-        }
-      }
-    }
+        },
+        required: [
+          'data',
+          'pagination'
+        ],
+        additionalProperties: false
+      },
+      400: { ...errorSchema },
+      401: { ...errorSchema }
+    },
+    tags: ['Contents']
   },
   all: {
+    summary: 'Get all contents',
     query: {
       type: 'object',
       properties: {
@@ -104,10 +114,14 @@ const ContentsSchemas = {
             items: contentSchema
           }
         }
-      }
-    }
+      },
+      400: { ...errorSchema },
+      401: { ...errorSchema }
+    },
+    tags: ['Contents']
   },
   show: {
+    summary: 'Get specific content',
     params: { ...baseParamsSchema },
     query: {
       type: 'object',
@@ -122,11 +136,18 @@ const ContentsSchemas = {
         type: 'object',
         properties: {
           data: contentSchema
-        }
-      }
-    }
+        },
+        required: ['data'],
+        additionalProperties: false
+      },
+      400: { ...errorSchema },
+      401: { ...errorSchema },
+      404: { ...errorSchema }
+    },
+    tags: ['Contents']
   },
   create: {
+    summary: 'Create new content',
     body: {
       type: 'object',
       properties: {
@@ -144,11 +165,17 @@ const ContentsSchemas = {
         type: 'object',
         properties: {
           data: contentSchema
-        }
-      }
-    }
+        },
+        required: ['data'],
+        additionalProperties: false
+      },
+      400: { ...errorSchema },
+      401: { ...errorSchema }
+    },
+    tags: ['Contents']
   },
   update: {
+    summary: 'Update specific content',
     params: { ...baseParamsSchema },
     body: {
       type: 'object',
@@ -167,12 +194,28 @@ const ContentsSchemas = {
         type: 'object',
         properties: {
           data: contentSchema
-        }
-      }
-    }
+        },
+        required: ['data'],
+        additionalProperties: false
+      },
+      400: { ...errorSchema },
+      401: { ...errorSchema },
+      404: { ...errorSchema }
+    },
+    tags: ['Contents']
   },
   destroy: {
-    params: { ...baseParamsSchema }
+    summary: 'Delete specific content',
+    params: { ...baseParamsSchema },
+    response: {
+      204: {
+        type: 'null'
+      },
+      400: { ...errorSchema },
+      401: { ...errorSchema },
+      404: { ...errorSchema }
+    },
+    tags: ['Contents']
   }
 }
 

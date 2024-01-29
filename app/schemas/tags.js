@@ -1,4 +1,4 @@
-import { baseFiltersSchema, baseParamsSchema, paginationSchema } from '../../lib/base_schemas.js'
+import { baseFiltersSchema, baseParamsSchema, errorSchema, paginationSchema } from '../../lib/base_schemas.js'
 import prepareFiltersSchema from '../../lib/prepare_filters_schema.js'
 import prepareSortSchema from '../../lib/prepare_sort_schema.js'
 
@@ -68,6 +68,7 @@ export const tagSchema = {
 
 const TagsSchemas = {
   index: {
+    summary: 'Get tags paginated list',
     query: {
       type: 'object',
       properties: {
@@ -89,11 +90,20 @@ const TagsSchemas = {
             items: tagSchema
           },
           pagination: paginationSchema
-        }
-      }
-    }
+        },
+        required: [
+          'data',
+          'pagination'
+        ],
+        additionalProperties: false
+      },
+      400: { ...errorSchema },
+      401: { ...errorSchema }
+    },
+    tags: ['Tags']
   },
   all: {
+    summary: 'Get all tags',
     query: {
       type: 'object',
       properties: {
@@ -113,10 +123,14 @@ const TagsSchemas = {
             items: tagSchema
           }
         }
-      }
-    }
+      },
+      400: { ...errorSchema },
+      401: { ...errorSchema }
+    },
+    tags: ['Tags']
   },
   show: {
+    summary: 'Get specific tag',
     params: { ...baseParamsSchema },
     query: {
       type: 'object',
@@ -131,11 +145,18 @@ const TagsSchemas = {
         type: 'object',
         properties: {
           data: tagSchema
-        }
-      }
-    }
+        },
+        required: ['data'],
+        additionalProperties: false
+      },
+      400: { ...errorSchema },
+      401: { ...errorSchema },
+      404: { ...errorSchema }
+    },
+    tags: ['Tags']
   },
   create: {
+    summary: 'Create new tag',
     body: {
       type: 'object',
       properties: {
@@ -149,11 +170,17 @@ const TagsSchemas = {
         type: 'object',
         properties: {
           data: tagSchema
-        }
-      }
-    }
+        },
+        required: ['data'],
+        additionalProperties: false
+      },
+      400: { ...errorSchema },
+      401: { ...errorSchema }
+    },
+    tags: ['Tags']
   },
   update: {
+    summary: 'Update specific tag',
     params: { ...baseParamsSchema },
     body: {
       type: 'object',
@@ -168,12 +195,28 @@ const TagsSchemas = {
         type: 'object',
         properties: {
           data: tagSchema
-        }
-      }
-    }
+        },
+        required: ['data'],
+        additionalProperties: false
+      },
+      400: { ...errorSchema },
+      401: { ...errorSchema },
+      404: { ...errorSchema }
+    },
+    tags: ['Tags']
   },
   destroy: {
-    params: { ...baseParamsSchema }
+    summary: 'Delete specific tag',
+    params: { ...baseParamsSchema },
+    response: {
+      204: {
+        type: 'null'
+      },
+      400: { ...errorSchema },
+      401: { ...errorSchema },
+      404: { ...errorSchema }
+    },
+    tags: ['Tags']
   }
 }
 

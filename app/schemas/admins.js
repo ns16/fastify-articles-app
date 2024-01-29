@@ -1,4 +1,4 @@
-import { baseFiltersSchema, baseParamsSchema, paginationSchema } from '../../lib/base_schemas.js'
+import { baseFiltersSchema, baseParamsSchema, errorSchema, paginationSchema } from '../../lib/base_schemas.js'
 import prepareFiltersSchema from '../../lib/prepare_filters_schema.js'
 import prepareSortSchema from '../../lib/prepare_sort_schema.js'
 
@@ -49,6 +49,7 @@ export const adminSchema = {
 
 const AdminsSchemas = {
   index: {
+    summary: 'Get admins paginated list',
     query: {
       type: 'object',
       properties: {
@@ -69,11 +70,20 @@ const AdminsSchemas = {
             items: adminSchema
           },
           pagination: paginationSchema
-        }
-      }
-    }
+        },
+        required: [
+          'data',
+          'pagination'
+        ],
+        additionalProperties: false
+      },
+      400: { ...errorSchema },
+      401: { ...errorSchema }
+    },
+    tags: ['Admins']
   },
   all: {
+    summary: 'Get all admins',
     query: {
       type: 'object',
       properties: {
@@ -92,10 +102,14 @@ const AdminsSchemas = {
             items: adminSchema
           }
         }
-      }
-    }
+      },
+      400: { ...errorSchema },
+      401: { ...errorSchema }
+    },
+    tags: ['Admins']
   },
   show: {
+    summary: 'Get specific admin',
     params: { ...baseParamsSchema },
     query: {
       type: 'object',
@@ -108,11 +122,18 @@ const AdminsSchemas = {
         type: 'object',
         properties: {
           data: adminSchema
-        }
-      }
-    }
+        },
+        required: ['data'],
+        additionalProperties: false
+      },
+      400: { ...errorSchema },
+      401: { ...errorSchema },
+      404: { ...errorSchema }
+    },
+    tags: ['Admins']
   },
   create: {
+    summary: 'Create new admin',
     body: {
       type: 'object',
       properties: {
@@ -134,11 +155,17 @@ const AdminsSchemas = {
         type: 'object',
         properties: {
           data: adminSchema
-        }
-      }
-    }
+        },
+        required: ['data'],
+        additionalProperties: false
+      },
+      400: { ...errorSchema },
+      401: { ...errorSchema }
+    },
+    tags: ['Admins']
   },
   update: {
+    summary: 'Update specific admin',
     params: { ...baseParamsSchema },
     body: {
       type: 'object',
@@ -160,12 +187,28 @@ const AdminsSchemas = {
         type: 'object',
         properties: {
           data: adminSchema
-        }
-      }
-    }
+        },
+        required: ['data'],
+        additionalProperties: false
+      },
+      400: { ...errorSchema },
+      401: { ...errorSchema },
+      404: { ...errorSchema }
+    },
+    tags: ['Admins']
   },
   destroy: {
-    params: { ...baseParamsSchema }
+    summary: 'Delete specific admin',
+    params: { ...baseParamsSchema },
+    response: {
+      204: {
+        type: 'null'
+      },
+      400: { ...errorSchema },
+      401: { ...errorSchema },
+      404: { ...errorSchema }
+    },
+    tags: ['Admins']
   }
 }
 

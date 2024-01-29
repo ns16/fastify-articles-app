@@ -1,5 +1,6 @@
 import { omit } from 'lodash-es'
 import { articleSchema } from './articles.js'
+import { errorSchema } from '../../lib/base_schemas.js'
 
 export const articleWithTagsSchema = {
   type: 'object',
@@ -15,6 +16,7 @@ export const articleWithTagsSchema = {
 
 const ArticlesTagsSchemas = {
   create: {
+    summary: 'Create article-tag relation',
     body: {
       type: 'object',
       properties: {
@@ -31,12 +33,18 @@ const ArticlesTagsSchemas = {
       200: {
         type: 'object',
         properties: {
-          data: articleSchema
-        }
-      }
-    }
+          data: articleWithTagsSchema
+        },
+        required: ['data'],
+        additionalProperties: false
+      },
+      400: { ...errorSchema },
+      401: { ...errorSchema }
+    },
+    tags: ['Articles-Tags']
   },
   destroy: {
+    summary: 'Delete article-tag relation',
     body: {
       type: 'object',
       properties: {
@@ -53,10 +61,15 @@ const ArticlesTagsSchemas = {
       200: {
         type: 'object',
         properties: {
-          data: articleSchema
-        }
-      }
-    }
+          data: articleWithTagsSchema
+        },
+        required: ['data'],
+        additionalProperties: false
+      },
+      400: { ...errorSchema },
+      401: { ...errorSchema }
+    },
+    tags: ['Articles-Tags']
   }
 }
 

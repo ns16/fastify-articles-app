@@ -1,7 +1,10 @@
 import { adminSchema } from './admins.js'
+import { errorSchema } from '../../lib/base_schemas.js'
 
 const AuthSchemas = {
   login: {
+    summary: 'Login',
+    security: [],
     body: {
       type: 'object',
       properties: {
@@ -19,19 +22,29 @@ const AuthSchemas = {
         type: 'object',
         properties: {
           data: adminSchema
-        }
-      }
-    }
+        },
+        required: ['data'],
+        additionalProperties: false
+      },
+      400: { ...errorSchema },
+      401: { ...errorSchema }
+    },
+    tags: ['Auth']
   },
   me: {
+    summary: 'Get authorized admin',
     response: {
       200: {
         type: 'object',
         properties: {
           data: adminSchema
-        }
-      }
-    }
+        },
+        required: ['data'],
+        additionalProperties: false
+      },
+      401: { ...errorSchema }
+    },
+    tags: ['Auth']
   }
 }
 
