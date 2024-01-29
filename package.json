@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "dotenv -e .env -- cross-env NODE_ENV=development nodemon index.js",
+    "start:prod": "dotenv -e .env -- cross-env NODE_ENV=production pm2 start index.js --name fastify-articles-app",
     "migrate": "npx prisma migrate deploy",
     "migrate:refresh": "npx prisma migrate reset --force --skip-seed",
     "db:seed": "npx prisma db seed",
