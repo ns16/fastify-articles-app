@@ -1,6 +1,6 @@
+import verifyJwt from '../../lib/verify_jwt.js'
 import ArticlesTagsController from '../controllers/articles_tags.js'
 import ArticlesTagsSchemas from '../schemas/articles_tags.js'
-import verifyJwt from '../../lib/verify_jwt.js'
 
 const controller = new ArticlesTagsController()
 

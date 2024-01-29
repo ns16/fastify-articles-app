@@ -1,6 +1,8 @@
 import { omit } from 'lodash-es'
-import { articleSchema } from './articles.js'
+
 import { errorSchema } from '../../lib/base_schemas.js'
+
+import { articleSchema } from './articles.js'
 
 export const articleWithTagsSchema = {
   type: 'object',

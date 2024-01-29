@@ -1,6 +1,6 @@
+import verifyJwt from '../../lib/verify_jwt.js'
 import ContentsController from '../controllers/contents.js'
 import ContentsSchemas from '../schemas/contents.js'
-import verifyJwt from '../../lib/verify_jwt.js'
 
 const controller = new ContentsController()
 

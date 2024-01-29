@@ -1,6 +1,6 @@
+import verifyJwt from '../../lib/verify_jwt.js'
 import TagsController from '../controllers/tags.js'
 import TagsSchemas from '../schemas/tags.js'
-import verifyJwt from '../../lib/verify_jwt.js'
 
 const controller = new TagsController()
 

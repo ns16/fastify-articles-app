@@ -1,6 +1,7 @@
-import CommandManager from '../../lib/command_manager.js'
-import { getAuthorization } from './helpers.js'
 import buildFastify from '../../app.js'
+import CommandManager from '../../lib/command_manager.js'
+
+import { getAuthorization } from './helpers.js'
 
 let fastify
 let authorization

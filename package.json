@@ -8,7 +8,9 @@
     "migrate": "npx prisma migrate deploy",
     "migrate:refresh": "npx prisma migrate reset --force --skip-seed",
     "db:seed": "npx prisma db seed",
-    "test": "dotenv -e .env.test -- cross-env NODE_ENV=test tap run --jobs=1 test/*.spec.js"
+    "test": "dotenv -e .env.test -- cross-env NODE_ENV=test tap run --jobs=1 test/*.spec.js",
+    "lint": "npx eslint .",
+    "lint:fix": "npx eslint --fix ."
   },
   "author": "Nikolay Shamayko <nikolay.shamayko@gmail.com>",
   "license": "MIT",
@@ -41,6 +43,9 @@
     "qs": "^6.11.2"
   },
   "devDependencies": {
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.1",
     "prisma": "^5.9.1",
     "tap": "^18.7.0",
     "tap-plugin-matchjsonschema": "^1.0.1"

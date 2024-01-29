@@ -1,6 +1,6 @@
+import verifyJwt from '../../lib/verify_jwt.js'
 import AuthController from '../controllers/auth.js'
 import AuthSchemas from '../schemas/auth.js'
-import verifyJwt from '../../lib/verify_jwt.js'
 
 const controller = new AuthController()
 

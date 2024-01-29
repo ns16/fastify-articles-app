@@ -14,7 +14,7 @@ main()
     await prisma.$disconnect()
   })
   .catch(async error => {
-    console.error(error)
+    console.error(error) // eslint-disable-line no-console
     await prisma.$disconnect()
     process.exit(1)
   })

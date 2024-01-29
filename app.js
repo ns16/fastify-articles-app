@@ -12,7 +12,7 @@ import transformSpecification from './lib/transform_specification.js'
 import swaggerConfig from './swagger.js'
 
 async function buildFastify() {
-  const fastify = Fastify({
+  const fastify = Fastify({ // eslint-disable-line new-cap
     logger: process.env.NODE_ENV !== 'test',
     querystringParser: str => qs.parse(str)
   })

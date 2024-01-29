@@ -1,6 +1,6 @@
+import verifyJwt from '../../lib/verify_jwt.js'
 import AdminsController from '../controllers/admins.js'
 import AdminsSchemas from '../schemas/admins.js'
-import verifyJwt from '../../lib/verify_jwt.js'
 
 const controller = new AdminsController()
 

@@ -1,5 +1,6 @@
-import { adminSchema } from './admins.js'
 import { errorSchema } from '../../lib/base_schemas.js'
+
+import { adminSchema } from './admins.js'
 
 const AuthSchemas = {
   login: {
